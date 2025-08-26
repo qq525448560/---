@@ -9,7 +9,7 @@ jobs:
   keepalive:
     runs-on: ubuntu-latest
     env:
-      URL: "https://xuemm-skjdh.hf.space/"
+      URL: "https://huggingface.co/spaces/asdiuzbxkcj/ccn"
       MAX_ATTEMPTS: 3
       BASE_SLEEP: 5
     steps:
