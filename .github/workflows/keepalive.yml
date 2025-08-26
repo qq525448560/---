@@ -1,37 +1,41 @@
-name: Keep Hugging Face Space Awake (bash)
+name: Keep Hugging Face Space Awake
 
 on:
   schedule:
-    - cron: "0 * * * *"  # 每小时执行一次
+    - cron: "0 * * * *" # 每小时执行一次
   workflow_dispatch:
 
 jobs:
   keepalive:
-    runs-on: 上运行:ubuntu-latest
+    runs-on: ubuntu-latest
     env:
-      URL: "https://Xuemm-skjdh.hf.space/lab?"
+      URL: "https://xuemm-skjdh.hf.space/"
       MAX_ATTEMPTS: 3
       BASE_SLEEP: 5
     steps:
       - name: Ping Space with retries
         run: |
           set -euo pipefail
+          echo "Ping $URL"
 
-echo “Ping $URL”
           attempt=1
-          while while [$attempt -le $MAX_ATTEMPTS]；做 $attempt -le $MAX_ATTEMPTS ]; do
-            status=$(curl -sSL -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $HF_TOKEN" "$URL“ || echo ”000")
-            echo 返回“尝试$尝试-> HTTP $状态”
-            if [ “美元地位” = "200" ] || [ “美元地位” = "302" ]; then
+          while [ $attempt -le $MAX_ATTEMPTS ]; do
+            status=$(curl -sSL -o /dev/null -w "%{http_code}" \
+              -H "Authorization: Bearer $HF_TOKEN" "$URL" || echo "000")
+
+            echo "Attempt $attempt -> HTTP $status"
+
+            if [ "$status" = "200" ] || [ "$status" = "302" ]; then
               echo "✅ Space reachable (HTTP $status)."
               exit 0
             fi
 
-            if 如果[$尝试-lt $MAX_ATTEMPTS]；然后 $attempt -lt $MAX_ATTEMPTS ]; then
+            if [ $attempt -lt $MAX_ATTEMPTS ]; then
               sleep_seconds=$(( BASE_SLEEP * attempt ))
-              echo 在重试前等待$sleep_seconds
+              echo "Waiting $sleep_seconds seconds before retry..."
               sleep $sleep_seconds
             fi
+
             attempt=$((attempt + 1))
           done
 
