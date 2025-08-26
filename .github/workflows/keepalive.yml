@@ -7,9 +7,9 @@ on:
 
 jobs:
   keepalive:
-    runs-on: ubuntu-latest
+    runs-on: 上运行:ubuntu-latest
     env:
-      URL: "https://huggingface.co/spaces/asdiuzbxkcj/ccn"
+      URL: "https://Xuemm-skjdh.hf.space/lab?"
       MAX_ATTEMPTS: 3
       BASE_SLEEP: 5
     steps:
@@ -17,19 +17,19 @@ jobs:
         run: |
           set -euo pipefail
 
-          echo "Ping $URL"
+echo “Ping $URL”
           attempt=1
-          while [ $attempt -le $MAX_ATTEMPTS ]; do
-            status=$(curl -sSL -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $HF_TOKEN" "$URL" || echo "000")
-            echo "Attempt $attempt -> HTTP $status"
-            if [ "$status" = "200" ] || [ "$status" = "302" ]; then
+          while while [$attempt -le $MAX_ATTEMPTS]；做 $attempt -le $MAX_ATTEMPTS ]; do
+            status=$(curl -sSL -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $HF_TOKEN" "$URL“ || echo ”000")
+            echo 返回“尝试$尝试-> HTTP $状态”
+            if [ “美元地位” = "200" ] || [ “美元地位” = "302" ]; then
               echo "✅ Space reachable (HTTP $status)."
               exit 0
             fi
 
-            if [ $attempt -lt $MAX_ATTEMPTS ]; then
+            if 如果[$尝试-lt $MAX_ATTEMPTS]；然后 $attempt -lt $MAX_ATTEMPTS ]; then
               sleep_seconds=$(( BASE_SLEEP * attempt ))
-              echo "Waiting $sleep_seconds seconds before retry..."
+              echo 在重试前等待$sleep_seconds
               sleep $sleep_seconds
             fi
             attempt=$((attempt + 1))
